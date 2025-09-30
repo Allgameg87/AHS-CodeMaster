@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster - Обучение программированию</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Хедер */
+        header {
+            background: #1a1a1a;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        nav ul li a:hover {
+            color: #00aaff;
+        }
+
+        /* Секция герой */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #00aaff, #007bff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background: #ff4d4d;
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #e63939;
+        }
+
+        /* Секция курсов */
+        .courses {
+            padding: 4rem 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .courses h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-card p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Отзывы */
+        .testimonials {
+            background: #f4f4f4;
+            padding: 4rem 20px;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card h4 {
+            font-size: 1rem;
+            color: #007bff;
+        }
+
+        /* Футер */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Хедер -->
+    <header>
+        <nav>
+            <div class="logo">CodeMaster</div>
+            <ul>
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#courses">Курсы</a></li>
+                <li><a href="#testimonials">Отзывы</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Секция герой -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Научись программировать с нуля!</h1>
+            <p>Практические курсы для начинающих и профессионалов. Стань разработчиком своей мечты.</p>
+            <a href="#courses" class="cta-button">Начать обучение</a>
+        </div>
+    </section>
+
+    <!-- Секция курсов -->
+    <section class="courses" id="courses">
+        <h2>Наши курсы</h2>
+        <div class="course-grid">
+            <div class="course-card">
+                <h3>Python для начинающих</h3>
+                <p>Освойте основы программирования на Python с нуля за 8 недель.</p>
+            </div>
+            <div class="course-card">
+                <h3>Веб-разработка</h3>
+                <p>Создавайте современные сайты с помощью HTML, CSS и JavaScript.</p>
+            </div>
+            <div class="course-card">
+                <h3>Data Science</h3>
+                <p>Изучайте анализ данных и машинное обучение с Python.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция отзывов -->
+    <section class="testimonials" id="testimonials">
+        <h2>Что говорят наши студенты</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p>"Курс по Python изменил мою карьеру! Теперь я работаю разработчиком."</p>
+                <h4>Анна, 27 лет</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"Веб-разработка стала для меня доступной благодаря этим курсам."</p>
+                <h4>Иван, 32 года</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"Преподаватели объясняют сложные вещи простым языком. Рекомендую!"</p>
+                <h4>Мария, 24 года</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer id="contact">
+        <p>&copy; 2025 CodeMaster. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
