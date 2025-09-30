@@ -3,27 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeMaster - Обучение программированию</title>
+    <title>CodeVibe - Стань программистом будущего</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            line-height: 1.6;
-            color: #333;
+            color: #1a1a1a;
+            background: #f5f7fa;
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* Тёмная тема */
+        body.dark {
+            background: #121212;
+            color: #e0e0e0;
         }
 
         /* Хедер */
         header {
-            background: #1a1a1a;
-            color: white;
-            padding: 1rem 0;
             position: fixed;
             width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
             z-index: 1000;
         }
 
@@ -36,96 +45,172 @@
             padding: 0 20px;
         }
 
-        nav .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #00d4ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 25px;
         }
 
         nav ul li a {
-            color: white;
+            color: #e0e0e0;
             text-decoration: none;
+            font-weight: 600;
             font-size: 1rem;
+            transition: color 0.3s;
         }
 
         nav ul li a:hover {
-            color: #00aaff;
+            color: #00d4ff;
+        }
+
+        /* Кнопка тёмной темы */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            cursor: pointer;
         }
 
         /* Секция герой */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, #00aaff, #007bff);
+            background: url('https://source.unsplash.com/random/1920x1080?tech') no-repeat center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.7), rgba(9, 9, 121, 0.7));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
             padding: 0 20px;
         }
 
         .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out;
         }
 
         .hero-content p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
+            animation: fadeInUp 1.2s ease-out;
         }
 
         .cta-button {
-            background: #ff4d4d;
+            background: #ff2e63;
             color: white;
-            padding: 0.8rem 2rem;
+            padding: 1rem 2.5rem;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            transition: background 0.3s;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1.4s ease-out;
         }
 
         .cta-button:hover {
-            background: #e63939;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Анимация */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Секция курсов */
         .courses {
-            padding: 4rem 20px;
+            padding: 5rem 20px;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
+            position: relative;
         }
 
         .courses h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
         }
 
         .course-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .course-card {
-            background: #f9f9f9;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark .course-card {
+            background: #1e1e1e;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #00d4ff;
+            transition: height 0.3s;
+        }
+
+        .course-card:hover::before {
+            height: 10px;
         }
 
         .course-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .course-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 600;
             margin-bottom: 1rem;
         }
 
@@ -134,47 +219,71 @@
             color: #666;
         }
 
-        /* Отзывы */
+        body.dark .course-card p {
+            color: #b0b0b0;
+        }
+
+        /* Секция отзывов */
         .testimonials {
-            background: #f4f4f4;
-            padding: 4rem 20px;
+            padding: 5rem 20px;
+            background: linear-gradient(135deg, #f5f7fa, #e0e7ff);
             text-align: center;
         }
 
+        body.dark .testimonials {
+            background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+        }
+
         .testimonials h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
         }
 
         .testimonial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .testimonial-card {
             background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        body.dark .testimonial-card {
+            background: #1e1e1e;
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.05);
         }
 
         .testimonial-card p {
             font-style: italic;
             margin-bottom: 1rem;
+            color: #555;
+        }
+
+        body.dark .testimonial-card p {
+            color: #b0b0b0;
         }
 
         .testimonial-card h4 {
             font-size: 1rem;
-            color: #007bff;
+            color: #00d4ff;
+            font-weight: 600;
         }
 
         /* Футер */
         footer {
-            background: #1a1a1a;
-            color: white;
+            background: #0a0a0a;
+            color: #e0e0e0;
             text-align: center;
             padding: 2rem 0;
         }
@@ -186,7 +295,7 @@
         /* Адаптивность */
         @media (max-width: 768px) {
             .hero-content h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
 
             .hero-content p {
@@ -195,7 +304,11 @@
 
             nav ul {
                 flex-direction: column;
-                gap: 10px;
+                gap: 15px;
+            }
+
+            .courses h2, .testimonials h2 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -204,70 +317,71 @@
     <!-- Хедер -->
     <header>
         <nav>
-            <div class="logo">CodeMaster</div>
+            <div class="logo">CodeVibe</div>
             <ul>
                 <li><a href="#home">Главная</a></li>
                 <li><a href="#courses">Курсы</a></li>
                 <li><a href="#testimonials">Отзывы</a></li>
                 <li><a href="#contact">Контакты</a></li>
             </ul>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
         </nav>
     </header>
 
     <!-- Секция герой -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Научись программировать с нуля!</h1>
-            <p>Практические курсы для начинающих и профессионалов. Стань разработчиком своей мечты.</p>
-            <a href="#courses" class="cta-button">Начать обучение</a>
+            <h1>Кодируй будущее с CodeVibe!</h1>
+            <p>Изучи программирование с нуля и стань звездой IT-мира. Практика, менторы, проекты.</p>
+            <a href="#courses" class="cta-button">Записаться на курс</a>
         </div>
     </section>
 
     <!-- Секция курсов -->
     <section class="courses" id="courses">
-        <h2>Наши курсы</h2>
+        <h2>Выбери свой путь в IT</h2>
         <div class="course-grid">
             <div class="course-card">
-                <h3>Python для начинающих</h3>
-                <p>Освойте основы программирования на Python с нуля за 8 недель.</p>
+                <h3>Python Pro</h3>
+                <p>Освой Python для веб-разработки, AI и автоматизации за 10 недель.</p>
             </div>
             <div class="course-card">
-                <h3>Веб-разработка</h3>
-                <p>Создавайте современные сайты с помощью HTML, CSS и JavaScript.</p>
+                <h3>Frontend Mastery</h3>
+                <p>Создавай интерактивные сайты с React, TypeScript и CSS.</p>
             </div>
             <div class="course-card">
-                <h3>Data Science</h3>
-                <p>Изучайте анализ данных и машинное обучение с Python.</p>
+                <h3>AI & Data Science</h3>
+                <p>Погрузись в мир машинного обучения и больших данных.</p>
             </div>
         </div>
     </section>
 
     <!-- Секция отзывов -->
     <section class="testimonials" id="testimonials">
-        <h2>Что говорят наши студенты</h2>
+        <h2>Истории успеха</h2>
         <div class="testimonial-grid">
             <div class="testimonial-card">
-                <p>"Курс по Python изменил мою карьеру! Теперь я работаю разработчиком."</p>
-                <h4>Анна, 27 лет</h4>
+                <p>"Курс по фронтенду дал мне уверенность и работу мечты!"</p>
+                <h4>Алексей, 29 лет</h4>
             </div>
             <div class="testimonial-card">
-                <p>"Веб-разработка стала для меня доступной благодаря этим курсам."</p>
-                <h4>Иван, 32 года</h4>
+                <p>"Python стал для меня открытием. Теперь я в AI!"</p>
+                <h4>Екатерина, 25 лет</h4>
             </div>
             <div class="testimonial-card">
-                <p>"Преподаватели объясняют сложные вещи простым языком. Рекомендую!"</p>
-                <h4>Мария, 24 года</h4>
+                <p>"Поддержка менторов помогла мне не сдаться!"</p>
+                <h4>Дмитрий, 31 год</h4>
             </div>
         </div>
     </section>
 
     <!-- Футер -->
     <footer id="contact">
-        <p>&copy; 2025 CodeMaster. Все права защищены.</p>
+        <p>&copy; 2025 CodeVibe. Создано для будущего.</p>
     </footer>
 
     <script>
-        // Плавная прокрутка для навигации
+        // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -275,6 +389,24 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Переключение тёмной темы
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        // Загрузка сохранённой темы
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+        }
+
+        // Параллакс-эффект для герой-секции
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero');
+            const scrollPosition = window.pageYOffset;
+            hero.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
         });
     </script>
 </body>
