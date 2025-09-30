@@ -30,10 +30,99 @@
         header {
             position: fixed;
             width: 100%;
-            background: rgba(10, 10, 10, 0.9);
+            background: rgba(245, 247, 250, 0.7);
             backdrop-filter: blur(10px);
             padding: 1rem 0;
             z-index: 1000;
+        }
+
+        body.dark header {
+            background: rgba(10, 10, 10, 0.9);
+        }
+
+        /* Декорации для хедера (не меняют структуру) */
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(90deg, rgba(0,212,255,0.18), rgba(0,212,255,0) 20% 80%, rgba(255,46,99,0.18));
+            opacity: 0.9;
+            z-index: -1;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, rgba(0,212,255,0), #ff2e63);
+            opacity: 0.7;
+        }
+
+        .header-glow {
+            position: fixed;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60vw;
+            height: 240px;
+            background: radial-gradient(ellipse at center, rgba(0,212,255,0.28), rgba(0,212,255,0));
+            filter: blur(40px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: glowPulse 8s ease-in-out infinite;
+        }
+
+        body.dark .header-glow {
+            background: radial-gradient(ellipse at center, rgba(0,212,255,0.22), rgba(0,212,255,0));
+            opacity: 0.7;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+            50% { transform: translateX(-50%) scale(1.05); opacity: 0.6; }
+        }
+
+        .header-accents {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .header-accents .dot {
+            position: absolute;
+            top: 22px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #00d4ff;
+            filter: drop-shadow(0 0 6px rgba(0,212,255,0.8));
+            animation: dotPulse 3.2s ease-in-out infinite;
+            opacity: 0.85;
+        }
+
+        .header-accents .dot.pink {
+            background: #ff2e63;
+            filter: drop-shadow(0 0 6px rgba(255,46,99,0.8));
+            animation-duration: 4s;
+        }
+
+        .header-accents .dot.d1 { left: 18%; }
+        .header-accents .dot.d2 { left: 42%; animation-delay: 0.6s; }
+        .header-accents .dot.d3 { left: 76%; animation-delay: 1s; }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.6); opacity: 0.5; }
         }
 
         nav {
@@ -60,24 +149,72 @@
         }
 
         nav ul li a {
-            color: #e0e0e0;
+            color: #1a1a1a;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
-            transition: color 0.3s;
+            transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background-color: rgba(0,0,0,0);
+        }
+
+        body.dark nav ul li a {
+            color: #e0e0e0;
         }
 
         nav ul li a:hover {
             color: #00d4ff;
+            background-color: rgba(0,212,255,0.10);
+            box-shadow: 0 6px 18px rgba(0,212,255,0.16);
+            transform: translateY(-1px);
+            text-shadow: 0 0 10px rgba(0,212,255,0.35);
         }
+
+        /* Подчёркивание-скольжение для ссылок в меню */
+        nav ul li a {
+            position: relative;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            height: 2px;
+            width: 0;
+            background: linear-gradient(90deg, #00d4ff, rgba(0,212,255,0));
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover::after { width: 100%; }
+        nav ul li a:focus, nav ul li a:focus-visible { outline: none; box-shadow: none; }
 
         /* Кнопка тёмной темы */
         .theme-toggle {
             background: none;
             border: none;
-            color: #e0e0e0;
+            color: #1a1a1a;
             font-size: 1.2rem;
             cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 999px;
+            transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+        }
+
+        body.dark .theme-toggle {
+            color: #e0e0e0;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0,212,255,0.12);
+            box-shadow: 0 0 0 0 rgba(0,212,255,0.12);
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0);
+            box-shadow: 0 0 0 0 rgba(0,212,255,0.18);
         }
 
         /* Секция герой */
@@ -111,6 +248,130 @@
             padding: 0 20px;
         }
 
+        /* Декоративная сетка и «блобы» */
+        .decor {
+            pointer-events: none;
+        }
+
+        .decor .blob {
+            position: fixed;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.25;
+            z-index: 0;
+            animation: float 12s ease-in-out infinite alternate;
+        }
+
+        .decor .blob-blue {
+            background: radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.8), rgba(0, 212, 255, 0));
+            top: 10vh;
+            left: -140px;
+        }
+
+        .decor .blob-pink {
+            background: radial-gradient(circle at 70% 70%, rgba(255, 46, 99, 0.7), rgba(255, 46, 99, 0));
+            bottom: 5vh;
+            right: -120px;
+            animation-duration: 16s;
+        }
+
+        /* Дополнительные блобы */
+        .decor .blob-cyan {
+            background: radial-gradient(circle at 60% 40%, rgba(0, 212, 255, 0.6), rgba(0, 212, 255, 0));
+            top: 55vh;
+            right: 20vw;
+            width: 360px;
+            height: 360px;
+            animation-duration: 18s;
+        }
+
+        .decor .blob-rose {
+            background: radial-gradient(circle at 40% 60%, rgba(255, 46, 99, 0.5), rgba(255, 46, 99, 0));
+            top: 15vh;
+            left: 55vw;
+            width: 300px;
+            height: 300px;
+            animation-duration: 14s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) scale(1); }
+            100% { transform: translateY(-30px) translateX(20px) scale(1.05); }
+        }
+
+        /* Лёгкая сетка на фоне секций */
+        .section-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 212, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px, 40px 40px;
+            z-index: 0;
+        }
+
+        body.dark .section-grid {
+            background-image:
+                linear-gradient(rgba(0, 212, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.06) 1px, transparent 1px);
+        }
+
+        /* Тонкое вращающееся кольцо за заголовком */
+        .ring {
+            position: absolute;
+            width: 480px;
+            height: 480px;
+            border-radius: 50%;
+            border: 2px dashed rgba(0, 212, 255, 0.35);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 24s linear infinite;
+            z-index: 1;
+        }
+
+        body.dark .ring {
+            border-color: rgba(0, 212, 255, 0.25);
+        }
+
+        @keyframes spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Canvas для частиц */
+        .particles-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.55;
+        }
+
+        /* Курсорный трекер */
+        .cursor-follower {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 160px;
+            height: 160px;
+            margin-left: -80px; /* центр */
+            margin-top: -80px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.35;
+            filter: blur(30px);
+            background: radial-gradient(circle at 50% 50%, rgba(0,212,255,0.8), rgba(0,212,255,0) 60%),
+                        radial-gradient(circle at 60% 60%, rgba(255,46,99,0.35), rgba(255,46,99,0) 70%);
+            transform: translate3d(0,0,0);
+            transition: opacity 0.25s ease;
+        }
+        body.dark .cursor-follower { opacity: 0.28; }
+        @media (pointer: coarse) { .cursor-follower { display: none; } }
+
         .hero-content h1 {
             font-size: 3.5rem;
             font-weight: 800;
@@ -125,20 +386,91 @@
         }
 
         .cta-button {
-            background: #ff2e63;
+            background: linear-gradient(135deg, #ff2e63, #ff5a85);
+            background-size: 200% 200%;
+            animation: fadeInUp 1.4s ease-out, gradientMove 8s ease infinite;
             color: white;
-            padding: 1rem 2.5rem;
+            padding: 1rem 3.2rem 1rem 2.4rem;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
+            border-radius: 999px;
+            font-weight: 800;
+            letter-spacing: 0.4px;
             font-size: 1.2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: fadeInUp 1.4s ease-out;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+            box-shadow: 0 10px 22px rgba(255, 46, 99, 0.38), 0 0 0 0 rgba(0,212,255,0.25);
+            will-change: transform, box-shadow, filter;
+            display: inline-block;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            border: none;
+            appearance: none;
+            background-clip: padding-box;
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 14px 28px rgba(255, 46, 99, 0.48);
+            filter: brightness(1.04);
+        }
+
+        /* Shine под курсором */
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(140px 140px at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.38), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cta-button:hover::before { opacity: 1; }
+        .cta-button:focus, .cta-button:focus-visible { outline: none; box-shadow: none; }
+        .cta-button::-moz-focus-inner { border: 0; }
+
+        /* Стрелка */
+        .cta-button::after {
+            content: '→';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%) translateX(0);
+            font-weight: 800;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.9;
+        }
+
+        .cta-button:hover::after {
+            transform: translateY(-50%) translateX(4px);
+            opacity: 1;
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px) scale(0.995);
+            box-shadow: 0 8px 18px rgba(255, 46, 99, 0.35);
+        }
+
+        /* Ripple */
+        .cta-button .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            width: 6px; height: 6px;
+            background: radial-gradient(circle, rgba(255,255,255,0.45), rgba(255,255,255,0) 70%);
+            animation: rippleAnim 520ms ease-out forwards;
+        }
+
+        @keyframes rippleAnim {
+            from { opacity: 0.75; transform: translate(-50%, -50%) scale(1); }
+            to { opacity: 0; transform: translate(-50%, -50%) scale(28); }
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Анимация */
@@ -324,12 +656,14 @@
                 <li><a href="#testimonials">Отзывы</a></li>
                 <li><a href="#contact">Контакты</a></li>
             </ul>
-            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Тёмная тема" title="Тёмная тема">🌙</button>
         </nav>
     </header>
 
     <!-- Секция герой -->
     <section class="hero" id="home">
+        <div class="section-grid"></div>
+        <div class="ring" aria-hidden="true"></div>
         <div class="hero-content">
             <h1>Кодируй будущее с CodeVibe!</h1>
             <p>Изучи программирование с нуля и стань звездой IT-мира. Практика, менторы, проекты.</p>
@@ -339,6 +673,7 @@
 
     <!-- Секция курсов -->
     <section class="courses" id="courses">
+        <div class="section-grid"></div>
         <h2>Выбери свой путь в IT</h2>
         <div class="course-grid">
             <div class="course-card">
@@ -380,6 +715,22 @@
         <p>&copy; 2025 CodeVibe. Создано для будущего.</p>
     </footer>
 
+    <!-- Декоративные элементы -->
+    <canvas class="particles-canvas" id="particles"></canvas>
+    <div class="cursor-follower" id="cursorFollower" aria-hidden="true"></div>
+    <div class="header-glow" aria-hidden="true"></div>
+    <div class="header-accents" aria-hidden="true">
+        <span class="dot d1"></span>
+        <span class="dot d2 pink"></span>
+        <span class="dot d3"></span>
+    </div>
+    <div class="decor" aria-hidden="true">
+        <span class="blob blob-blue"></span>
+        <span class="blob blob-pink"></span>
+        <span class="blob blob-cyan"></span>
+        <span class="blob blob-rose"></span>
+    </div>
+
     <script>
         // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -391,16 +742,39 @@
             });
         });
 
-        // Переключение тёмной темы
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        // Утилиты темы
+        function updateThemeToggleIcon() {
+            const btn = document.querySelector('.theme-toggle');
+            if (!btn) return;
+            const isDark = document.body.classList.contains('dark');
+            btn.textContent = isDark ? '☀️' : '🌙';
+            const label = isDark ? 'Светлая тема' : 'Тёмная тема';
+            btn.setAttribute('aria-label', label);
+            btn.setAttribute('title', label);
         }
 
-        // Загрузка сохранённой темы
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark');
+        function setTheme(theme) {
+            const isDark = theme === 'dark';
+            document.body.classList.toggle('dark', isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeToggleIcon();
         }
+
+        function toggleTheme() {
+            const isDark = document.body.classList.contains('dark');
+            setTheme(isDark ? 'light' : 'dark');
+        }
+
+        // Инициализация сохранённой темы
+        (function initTheme() {
+            const stored = localStorage.getItem('theme');
+            if (stored === 'dark' || stored === 'light') {
+                setTheme(stored);
+            } else {
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(prefersDark ? 'dark' : 'light');
+            }
+        })();
 
         // Параллакс-эффект для герой-секции
         window.addEventListener('scroll', () => {
@@ -408,6 +782,128 @@
             const scrollPosition = window.pageYOffset;
             hero.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
         });
+
+        // Частицы на canvas
+        (function initParticles(){
+            const canvas = document.getElementById('particles');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width, height, dpr;
+            const particles = [];
+            const NUM = 80; // умеренно
+
+            function resize(){
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = Math.floor(width * dpr);
+                canvas.height = Math.floor(height * dpr);
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function rand(min, max){ return Math.random() * (max - min) + min; }
+
+            function makeParticle(){
+                const useBlue = Math.random() > 0.5;
+                return {
+                    x: rand(0, width),
+                    y: rand(0, height),
+                    vx: rand(-0.2, 0.2),
+                    vy: rand(-0.2, 0.2),
+                    r: rand(0.6, 1.8),
+                    color: useBlue ? 'rgba(0,212,255,0.7)' : 'rgba(255,46,99,0.6)'
+                };
+            }
+
+            function init(){
+                particles.length = 0;
+                for (let i = 0; i < NUM; i++) particles.push(makeParticle());
+            }
+
+            function step(){
+                ctx.clearRect(0, 0, width, height);
+                for (const p of particles){
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < -10) p.x = width+10; if (p.x > width+10) p.x = -10;
+                    if (p.y < -10) p.y = height+10; if (p.y > height+10) p.y = -10;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                }
+
+                // мягкие соединительные линии
+                for (let i=0;i<particles.length;i++){
+                    for (let j=i+1;j<particles.length;j++){
+                        const a = particles[i], b = particles[j];
+                        const dx = a.x - b.x, dy = a.y - b.y;
+                        const dist2 = dx*dx + dy*dy;
+                        const maxDist = 120;
+                        if (dist2 < maxDist*maxDist){
+                            const alpha = 1 - Math.sqrt(dist2)/maxDist;
+                            ctx.strokeStyle = `rgba(0,212,255,${0.08*alpha})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(a.x, a.y);
+                            ctx.lineTo(b.x, b.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(step);
+            }
+
+            resize();
+            init();
+            step();
+            window.addEventListener('resize', () => { resize(); init(); });
+        })();
+
+        // Курсорный трекер без задержки (мгновенное следование)
+        (function initCursorFollower(){
+            const el = document.getElementById('cursorFollower');
+            if (!el) return;
+            function onMove(e){
+                el.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+                el.style.opacity = '';
+            }
+            function onLeave(){ el.style.opacity = '0'; }
+            // начальная позиция по центру
+            el.style.transform = `translate3d(${window.innerWidth/2}px, ${window.innerHeight/2}px, 0)`;
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseleave', onLeave);
+        })();
+
+        // Подсветка под курсором на CTA
+        (function attachCtaPointerLight(){
+            const cta = document.querySelector('.cta-button');
+            if (!cta) return;
+            cta.addEventListener('mousemove', (e) => {
+                const rect = cta.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                cta.style.setProperty('--x', x + 'px');
+                cta.style.setProperty('--y', y + 'px');
+            });
+            cta.addEventListener('mouseleave', () => {
+                cta.style.removeProperty('--x');
+                cta.style.removeProperty('--y');
+            });
+            // Ripple по клику
+            cta.addEventListener('click', (e) => {
+                const rect = cta.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                ripple.style.left = (e.clientX - rect.left) + 'px';
+                ripple.style.top = (e.clientY - rect.top) + 'px';
+                cta.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        })();
     </script>
 </body>
 </html>
